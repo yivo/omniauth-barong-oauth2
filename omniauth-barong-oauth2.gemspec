@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version       = OmniAuthBarongOAuth2::VERSION
   s.author        = "Yaroslav Konoplov"
   s.email         = "eahome00@gmail.com"
-  s.summary       = "OmniAuth OAuth2 strategy for Barong."
+  s.summary       = "OmniAuth strategy for Barong OAuth2."
   s.description   = "The OmniAuth strategy for authenticating users using Barong (open-source OAuth2 and KyC server powered by Doorkeeper)."
   s.homepage      = "https://github.com/yivo/omniauth-barong-oauth2"
   s.license       = "Apache-2.0"

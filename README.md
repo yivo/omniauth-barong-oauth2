@@ -1,4 +1,4 @@
-# OmniAuth Strategy for Barong OAuth2
+# OmniAuth strategy for Barong OAuth2
 
 ## Usage
 
