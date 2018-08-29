@@ -5,29 +5,31 @@ require "omniauth-oauth2"
 require "uri"
 
 module OmniAuth::Strategies
-  class BarongOAuth2 < OAuth2
-    option :name, "barong-oauth2"
+  class Barong < OAuth2
+    option :name, "barong"
     option :authorize_path, "/oauth/authorize"
-    option :resource_path, "/oauth/account"
+    option :account_path, "/oauth/account"
     args %i[ root_url client_id client_secret ]
 
     def client
-      options.client_options.site          = root_url
-      options.client_options.authorize_url = URI.join(root_url, options.authorize_path)
-      options.client_options.redirect_uri  = full_host + script_name + callback_path
+      options.client_options.site           = root_url
+      options.client_options.authorize_path = options.authorize_path
       super
     end
 
     def root_url
-      @root_url ||= URI.parse(options.root_url)
+      @root_url ||= URI.parse(options.root_url).to_s
     end
 
-    uid { resource.fetch("uid") }
+    uid { account.fetch("uid") }
 
-    info { puts resource; resource }
+    def account
+      @account ||= access_token.get(URI.join(root_url, options.account_path).to_s).parsed
+    end
 
-    def resource
-      @resource ||= access_token.get(URI.join(root_url, options.resource_path)).parsed
+    # See https://github.com/omniauth/omniauth-oauth2/issues/81
+    def callback_url
+      full_host + script_name + callback_path
     end
   end
 end
