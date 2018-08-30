@@ -3,6 +3,7 @@
 
 require "omniauth-oauth2"
 require "uri"
+require "active_support/core_ext/object/deep_dup"
 
 module OmniAuth::Strategies
   class Barong < OAuth2
@@ -22,6 +23,8 @@ module OmniAuth::Strategies
     end
 
     uid { account.fetch("uid") }
+
+    info { account.deep_dup }
 
     def account
       @account ||= access_token.get(URI.join(root_url, options.account_path).to_s).parsed
