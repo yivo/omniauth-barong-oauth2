@@ -19,7 +19,7 @@ module OmniAuth::Strategies
     end
 
     def root_url
-      @root_url ||= URI.parse(options.root_url).to_s
+      @root_url ||= URI.parse(options.root_url.respond_to?(:call) ? options.root_url.call : options.root_url).to_s
     end
 
     uid { account.fetch("uid") }

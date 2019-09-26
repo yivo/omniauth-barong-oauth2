@@ -8,11 +8,11 @@
 # encoding: UTF-8
 # frozen_string_literal: true
 
-Rails.logger.warn { "Enabling Barong OAuth2." }
+Rails.logger.info { "Enabling Barong OAuth2." }
 require "omniauth-barong-oauth2"
 Rails.application.config.middleware.use OmniAuth::Builder do
 provider :barong,
-          ENV.fetch("BARONG_ROOT_URL"),
+          ENV.fetch("BARONG_ROOT_URL"), # Can be callable.
           ENV.fetch("BARONG_CLIENT_ID"),
           ENV.fetch("BARONG_CLIENT_SECRET"),
           authorize_path: "/oauth/authorize", # Optional.
